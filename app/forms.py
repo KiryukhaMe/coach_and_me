@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, DateTimeField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -21,6 +21,5 @@ class RegisterForm(FlaskForm):
 class WorkoutForm(FlaskForm):
     title = StringField('Название тренировки', validators=[DataRequired()])
     description = TextAreaField('Описание')
-    date = DateTimeField('Дата и время', format='%Y-%m-%d %H:%M', validators=[DataRequired()])
     duration = IntegerField('Длительность (минут)')
     submit = SubmitField('Добавить')

@@ -79,7 +79,7 @@ def profile():
 @login_required
 def workouts():
     db_sess = db_session.create_session()
-    workouts = db_sess.query(Workout).filter(Workout.user_id == current_user.id).all()
+    workouts = db_sess.query(Workout).filter(Workout.user_id == current_user.id).all()[::-1]
     return render_template('workouts.html', title='Coach and Me! - Тренировки', workouts=workouts)
 
 @app.route('/add_workout', methods=['GET', 'POST'])
@@ -91,7 +91,6 @@ def add_workout():
         workout = Workout(
             title=form.title.data,
             description=form.description.data,
-            date=form.date.data,
             duration=form.duration.data,
             user_id=current_user.id
         )
@@ -100,6 +99,47 @@ def add_workout():
         flash('Тренировка добавлена!', 'success')
         return redirect(url_for('workouts'))
     return render_template('add_workout.html', title='Coach and Me! - Добавить тренировку', form=form)
+
+@app.route('/edit_workout/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_workout(id):
+    db_sess = db_session.create_session()
+    workout = db_sess.query(Workout).filter(Workout.id == id, Workout.user_id == current_user.id).first()
+
+    if not workout:
+        flash('Тренировка не найдена', 'danger')
+        return redirect(url_for('workouts'))
+
+    form = WorkoutForm()
+    if form.validate_on_submit():
+        workout.title = form.title.data
+        workout.description = form.description.data
+        workout.duration = form.duration.data
+        db_sess.commit()
+        flash('Тренировка успешно обновлена!', 'success')
+        return redirect(url_for('workouts'))
+
+    elif request.method == 'GET':
+        form.title.data = workout.title
+        form.description.data = workout.description
+        form.duration.data = workout.duration
+
+    return render_template('edit_workout.html', title='Редактировать тренировку', form=form)
+
+@app.route('/delete_workout/<int:id>', methods=['POST'])
+@login_required
+def delete_workout(id):
+    db_sess = db_session.create_session()
+    workout = db_sess.query(Workout).filter(Workout.id == id, Workout.user_id == current_user.id).first()
+
+    if workout:
+        db_sess.delete(workout)
+        db_sess.commit()
+        flash('Тренировка успешно удалена!', 'success')
+    else:
+        flash('Тренировка не найдена', 'danger')
+
+    return redirect(url_for('workouts'))
 
 if __name__ == '__main__':
     main()

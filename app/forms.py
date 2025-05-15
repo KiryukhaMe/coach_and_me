@@ -21,5 +21,5 @@ class RegisterForm(FlaskForm):
 class WorkoutForm(FlaskForm):
     title = StringField('Название тренировки', validators=[DataRequired()])
     description = TextAreaField('Описание')
-    duration = IntegerField('Длительность (минут)')
+    duration = IntegerField('Длительность (в минутах)')
     submit = SubmitField('Добавить')

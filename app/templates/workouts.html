@@ -15,10 +15,10 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ workout.title }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">
-                            {{ workout.date.strftime('%d.%m.%Y %H:%M') }}
                             {% if workout.duration %}
-                                <span class="badge bg-primary">{{ workout.duration }} мин</span>
+                                <span class="badge bg-primary">{{ workout.duration }} минут</span>
                             {% endif %}
+                            {{ workout.date.strftime('%d.%m.%Y %H:%M') }}
                         </h6>
                         {% if workout.description %}
                         <p class="card-text">{{ workout.description }}</p>

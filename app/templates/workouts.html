@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Мои тренировки</h2>
+    <a href="{{ url_for('add_workout') }}" class="btn btn-success mb-3">Добавить тренировку</a>
+    
+    {% if workouts %}
+        <div class="row">
+            {% for workout in workouts %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ workout.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ workout.date.strftime('%d.%m.%Y %H:%M') }}
+                            {% if workout.duration %}
+                                ({{ workout.duration }} мин)
+                            {% endif %}
+                        </h6>
+                        <p class="card-text">{{ workout.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            У вас пока нет тренировок. Добавьте первую!
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

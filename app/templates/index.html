@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Добро пожаловать в Coach and Me!</h1>
+    <p class="lead">Ваш персональный журнал тренировок</p>
+    <hr class="my-4">
+    {% if current_user.is_authenticated %}
+        <p>Начните добавлять свои тренировки прямо сейчас!</p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('add_workout') }}" role="button">Добавить тренировку</a>
+    {% else %}
+        <p>Зарегистрируйтесь или войдите, чтобы начать вести журнал тренировок.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a class="btn btn-primary btn-lg px-4 gap-3" href="{{ url_for('login') }}" role="button">Войти</a>
+            <a class="btn btn-outline-secondary btn-lg px-4" href="{{ url_for('register') }}" role="button">Регистрация</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

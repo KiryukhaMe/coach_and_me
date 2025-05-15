@@ -1,4 +1,2 @@
-from . import users
-from . import workouts
-from . import exercises
-from . import sets
+from data.users import User
+from data.workouts import Workout

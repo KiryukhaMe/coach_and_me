@@ -17,7 +17,7 @@ login_manager.login_view = 'login'
 
 def main():
     db_session.global_init(SQLALCHEMY_DATABASE_URI)
-    app.run(debug=True)
+    app.run()
 
 @login_manager.user_loader
 def load_user(user_id):

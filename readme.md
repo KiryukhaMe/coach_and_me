@@ -25,8 +25,8 @@
 
 1. **Клонируйте репозиторий**:
    ```bash
-   git clone https://github.com/ваш-username/coach-and-me.git
-   cd coach-and-me
+   git clone https://github.com/KiryukhaMe/coach_and_me.git
+   cd coach_and_me
    ```
 
 2. **Создайте виртуальное окружение**:
